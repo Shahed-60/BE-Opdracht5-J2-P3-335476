@@ -3,47 +3,45 @@
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
 -- *******       **********      ****************            ******************
--- 01            04-04-2023      Arjan de Ruijter            New
+-- 01            15-01-2024      Shahed Amer                New
 -- **********************************************************************************/
 
 -- Check if the database exists
-DROP DATABASE IF EXISTS `Mvc-2209a-P4`;
+DROP DATABASE IF EXISTS `Be-opdracht05`;
 
 -- Create a new Database
-CREATE DATABASE IF NOT EXISTS `Mvc-2209a-P4`;
+CREATE DATABASE IF NOT EXISTS `Be-opdracht05`;
 
--- Use database Mvc-2209a-P4
-Use `Mvc-2209a-P4`;
+-- Use database Be-opdracht05
+Use `Be-opdracht05`;
 
 
 -- Step: 02
--- Goal: Create a new table Instructeur
+-- Goal: Create a new table Magazijn
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
 -- *******       **********      ****************            ******************
 -- 01            04-04-2023      Arjan de Ruijter            New
 -- **********************************************************************************/
 
--- Drop table Instructeur
-DROP TABLE IF EXISTS Instructeur;
+-- Drop table Magazijn
+DROP TABLE IF EXISTS Magazijn;
 
-CREATE TABLE IF NOT EXISTS Instructeur
+CREATE TABLE IF NOT EXISTS Magazijn
 (
-    Id              TINYINT         UNSIGNED        NOT NULL    AUTO_INCREMENT
-   ,Voornaam        VARCHAR(50)                     NOT NULL
-   ,Tussenvoegsel   VARCHAR(10)                     NOT NULL
-   ,Achternaam      VARCHAR(50)                     NOT NULL
-   ,Mobiel          VARCHAR(12)                     NOT NULL
-   ,DatumInDienst   DATE                            NOT NULL
-   ,AantalSterren   VARCHAR(6)                      NOT NULL
-   ,IsActief        BIT                             NOT NULL    DEFAULT 1
-   ,Opmerkingen     VARCHAR(250)                        NULL    DEFAULT NULL
-   ,DatumAangemaakt DateTime(6)                     NOT NULL
-   ,DatumGewijzigd  DateTime(6)                     NOT NULL
+    Id                          TINYINT         UNSIGNED        NOT NULL    AUTO_INCREMENT
+   ,ProductId                   INT             UNSIGNED                  NOT NULL
+   ,VerpakkingsEenheid          Decimal(4,2)                    NOT NULL
+   ,AantalAanwezig              INT                             NULL
+   ,IsActief                    BIT                             NOT NULL    DEFAULT 1
+   ,Opmerkingen                 VARCHAR(250)                        NULL    DEFAULT NULL
+   ,DatumAangemaakt             DateTime(6)                     NOT NULL
+   ,DatumGewijzigd              DateTime(6)                     NOT NULL
 
-   ,CONSTRAINT      PK_Instructeur_Id   PRIMARY KEY CLUSTERED(Id)
+   ,CONSTRAINT      PK_Magazijn_Id   PRIMARY KEY CLUSTERED(Id)
+--    ,CONSTRAINT      FK_Magazijn_ProductId  FOREIGN KEY (ProductId) REFERENCES Product(Id)
+
 ) ENGINE=InnoDB;
-
 
 -- Step: 03
 -- Goal: Fill table Instructeur with data
@@ -54,50 +52,55 @@ CREATE TABLE IF NOT EXISTS Instructeur
 -- 01            04-04-2023      Arjan de Ruijter            New
 -- **********************************************************************************/
 
-INSERT INTO Instructeur
+INSERT INTO Magazijn
 (
-     Voornaam
-    ,Tussenvoegsel
-    ,Achternaam
-    ,Mobiel
-    ,DatumInDienst
-    ,AantalSterren
+     ProductId         
+    ,VerpakkingsEenheid
+    ,AantalAanwezig    
     ,IsActief
     ,Opmerkingen
     ,DatumAangemaakt
     ,DatumGewijzigd
 )
 VALUES
-     ('Li', '', 'Zhan', '06-28493827', '2015-04-17', '***', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('Leroy', '', 'Boerhaven', '06-39398734', '2018-06-25', '*', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('Yoeri', 'van', 'Veen', '06-24383291', '2010-05-12', '***', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('Bert', 'van', 'Sali', '06-48293823', '2023-01-10', '****', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('Mohammed', 'El', 'Yassidi', '06-34291234', '2010-06-14', '*****', 1, NULL, SYSDATE(6), SYSDATE(6));
+     (1,5,453, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(2,2.5,400, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(3,5,1, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(4,1,800, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(5,3,234, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(6,2,345, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(7,1,795, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(8,10,233, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(9,2.5,123, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(10,3,NULL, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(11,2,367, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(12,1,467, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(13,5,20, 1, NULL, SYSDATE(6), SYSDATE(6));
 
 
 
 -- Step: 04
--- Goal: Create a new table TypeVoertuig
+-- Goal: Create a new table Product
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
 -- *******       **********      ****************            ******************
 -- 01            04-04-2023      Arjan de Ruijter            New
 -- **********************************************************************************/
 
--- Drop table TypeVoertuig
-DROP TABLE IF EXISTS TypeVoertuig;
+-- Drop table Product
+DROP TABLE IF EXISTS Product;
 
-CREATE TABLE IF NOT EXISTS TypeVoertuig
+CREATE TABLE IF NOT EXISTS Product
 (
-    Id                  TINYINT         UNSIGNED        NOT NULL    AUTO_INCREMENT
-   ,TypeVoertuig        VARCHAR(20)                     NOT NULL
-   ,Rijbewijscategorie  VARCHAR(5)                      NOT NULL
+    Id                  INT         UNSIGNED        NOT NULL    AUTO_INCREMENT
+   ,Naam                VARCHAR(50)                     NOT NULL
+   ,Barcode             BIGINT                            NOT NULL
    ,IsActief            BIT                             NOT NULL    DEFAULT 1
    ,Opmerkingen         VARCHAR(250)                        NULL    DEFAULT NULL
    ,DatumAangemaakt     DateTime(6)                     NOT NULL
    ,DatumGewijzigd      DateTime(6)                     NOT NULL
 
-   ,CONSTRAINT      PK_TypeVoertuig_Id   PRIMARY KEY CLUSTERED(Id)
+   ,CONSTRAINT      PK_Product_Id   PRIMARY KEY CLUSTERED(Id)
 ) ENGINE=InnoDB;
 
 
@@ -110,49 +113,108 @@ CREATE TABLE IF NOT EXISTS TypeVoertuig
 -- 01            04-04-2023      Arjan de Ruijter            New
 -- **********************************************************************************/
 
-INSERT INTO TypeVoertuig
+INSERT INTO Product
 (
-     TypeVoertuig
-    ,Rijbewijscategorie
+     Naam
+    ,Barcode
     ,IsActief
     ,Opmerkingen
     ,DatumAangemaakt
     ,DatumGewijzigd
 )
 VALUES
-     ('Personenauto', 'B', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('Vrachtwagen', 'C', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('Bus', 'D', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('Bromfiets', 'AM', 1, NULL, SYSDATE(6), SYSDATE(6));
+      ('Mintnopjes',8719587231278, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,('Schoolkrijt',8719587326713, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Honingdrop',8719587327836, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Zure Beren',8719587321441, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Cola Flesjes',8719587321237, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Turtles',8719587322245, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Witte Muizen',8719587328256, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Reuze Slangen',8719587325641, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Zoute Rijen',8719587322739, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Winegums',8719587327527, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Drop Munten',8719587322345, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Kruis Drop',8719587322265, 1, NULL, SYSDATE(6), SYSDATE(6))
+     ,('Zoute Ruitjes',8719587323256, 1, NULL, SYSDATE(6), SYSDATE(6));
 
 
 
 -- Step: 06
--- Goal: Create a new table Voertuig
+-- Goal: Create a new table ProductPerAllergeen
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
 -- *******       **********      ****************            ******************
 -- 01            04-04-2023      Arjan de Ruijter            New
 -- **********************************************************************************/
 
--- Drop table Voertuig
-DROP TABLE IF EXISTS Voertuig;
+-- Drop table ProductPerAllergeen
 
-CREATE TABLE IF NOT EXISTS Voertuig
+-- Step: 08
+-- Goal: Create a new table Allergeen
+-- **********************************************************************************
+-- Version       Date:           Author:                     Description:
+-- *******       **********      ****************            ******************
+-- 01            04-04-2023      Arjan de Ruijter            New
+-- **********************************************************************************/
+
+-- Drop table Allergeen
+DROP TABLE IF EXISTS Allergeen;
+
+CREATE TABLE IF NOT EXISTS Allergeen
 (
     Id                  TINYINT         UNSIGNED        NOT NULL    AUTO_INCREMENT
-   ,Kenteken            VARCHAR(12)                     NOT NULL
-   ,Type                VARCHAR(20)                     NOT NULL
-   ,Bouwjaar            DATE                            NOT NULL
-   ,Brandstof           VARCHAR(20)                     NOT NULL  
-   ,TypeVoertuigId      TINYINT         UNSIGNED        NOT NULL  
+   ,Naam                VARCHAR(50)                     NOT NULL
+   ,Omschrijving        VARCHAR(100)                    NOT NULL
    ,IsActief            BIT                             NOT NULL    DEFAULT 1
    ,Opmerkingen         VARCHAR(250)                        NULL    DEFAULT NULL
    ,DatumAangemaakt     DateTime(6)                     NOT NULL
    ,DatumGewijzigd      DateTime(6)                     NOT NULL
 
-   ,CONSTRAINT      PK_Voertuig_Id   PRIMARY KEY CLUSTERED(Id)
-   ,CONSTRAINT      FK_Voertuig_TypeVoertuigId_TypeVoertuig_Id  FOREIGN KEY (TypeVoertuigId) REFERENCES TypeVoertuig(Id)
+   ,CONSTRAINT      PK_Allergeen_Id   PRIMARY KEY CLUSTERED(Id)
+) ENGINE=InnoDB;
+
+
+-- Step: 09
+-- Goal: Fill table Allergeen with data
+-- **********************************************************************************
+
+-- Version       Date:           Author:                     Description:
+-- *******       **********      ****************            ******************
+-- 01            04-04-2023      Arjan de Ruijter            New
+-- **********************************************************************************/
+
+INSERT INTO Allergeen
+(
+     Naam        
+    ,Omschrijving
+    ,IsActief
+    ,Opmerkingen
+    ,DatumAangemaakt
+    ,DatumGewijzigd
+)
+VALUES
+     ('Gluten', 'Dit product bevat gluten', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,('Gelatine', 'Dit product bevat gelatine', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,('AZO-Kleur', 'Dit product bevat AZO-Kleur', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,('Lactose', 'Dit product bevat lactose', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,('Soja', 'Dit product bevat soja', 1, NULL, SYSDATE(6), SYSDATE(6));
+
+DROP TABLE IF EXISTS ProductPerAllergeen;
+
+CREATE TABLE IF NOT EXISTS ProductPerAllergeen
+(
+    Id                  TINYINT         UNSIGNED        NOT NULL    AUTO_INCREMENT
+   ,ProductId           INT             UNSIGNED                NOT NULL
+   ,AllergeenId         TINYINT             UNSIGNED                           NOT NULL
+   ,IsActief            BIT                             NOT NULL    DEFAULT 1
+   ,Opmerkingen         VARCHAR(250)                        NULL    DEFAULT NULL
+   ,DatumAangemaakt     DateTime(6)                     NOT NULL
+   ,DatumGewijzigd      DateTime(6)                     NOT NULL
+
+   ,CONSTRAINT      PK_ProductPerAllergeen_Id   PRIMARY KEY CLUSTERED(Id)
+   
+
+
 ) ENGINE=InnoDB;
 
 
@@ -165,86 +227,137 @@ CREATE TABLE IF NOT EXISTS Voertuig
 -- 01            04-04-2023      Arjan de Ruijter            New
 -- **********************************************************************************/
 
-INSERT INTO Voertuig
+INSERT INTO ProductPerAllergeen
 (
-     Kenteken
-    ,Type
-    ,Bouwjaar
-    ,Brandstof
-    ,TypeVoertuigId
+     ProductId  
+    ,AllergeenId
     ,IsActief
     ,Opmerkingen
     ,DatumAangemaakt
     ,DatumGewijzigd
 )
 VALUES
-     ('AU-67-IO', 'Golf', '2017-06-12', 'Diesel', 1, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('TR-24-OP', 'DAF', '2019-05-23', 'Diesel', 2, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('TH-78-KL', 'Mercedes', '2023-01-01', 'Benzine', 1, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('90-KL-TR', 'Fiat 500', '2021-09-12', 'Benzine', 1, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('34-TK-LP', 'Scania', '2015-03-13', 'Diesel', 2, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('YY-OP-78', 'BMW M5', '2022-05-13', 'Diesel', 1, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('UU-HH-JK', 'M.A.N', '2017-12-03', 'Diesel', 2, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('ST-FZ-28', 'Citroën', '2018-01-20', 'Elektrisch', 1, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('123-FR-T', 'Piaggio ZIP', '2021-02-01', 'Benzine', 4, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('DRS-52-P', 'Vespa', '2022-03-21', 'Benzine', 4, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('STP-12-U', 'Vespa', '2022-07-02', 'Benzine', 4, 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('45-SD-23', 'Renault', '2023-01-01', 'Diesel', 3, 1, NULL, SYSDATE(6), SYSDATE(6));
+    (1,  2,   1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(1,  1,  1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(1,  3,  1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(3,  4,  1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(6,  5,  1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(9,  2,  1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(9,  5,  1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(10, 2,  1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(12, 4,  1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(13, 1,  1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(13, 4,  1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(13, 5,  1, NULL, SYSDATE(6), SYSDATE(6));
 
+   
+-- Drop table Allergeen
+DROP TABLE IF EXISTS ProductPerLeverancier;
 
+CREATE TABLE IF NOT EXISTS ProductPerLeverancier
+(
+   Id                          INT             UNSIGNED         NOT NULL    AUTO_INCREMENT
+   ,LeverancierId               TINYINT            UNSIGNED                 NOT NULL
+   ,ProductId                   INT            UNSIGNED                 NOT NULL
+   ,DatumLevering               DATETIME                        NOT NULL
+   ,Aantal                      INT                             NOT NULL 
+   ,DatumEerstVolgendeLevering DATETIME                         NULL
+   ,IsActief                    BIT                             NOT NULL    DEFAULT 1
+   ,Opmerkingen                 VARCHAR(250)                        NULL    DEFAULT NULL
+   ,DatumAangemaakt             DateTime(6)                     NOT NULL
+   ,DatumGewijzigd              DateTime(6)                     NOT NULL
 
--- Step: 08
--- Goal: Create a new table VoertuigInstructeur
+   ,CONSTRAINT      PK_ProductPerLeverancier_Id          PRIMARY KEY CLUSTERED(Id)
+   
+) ENGINE=InnoDB;
+-- Step: 10
+-- Goal: Fill table ProductPerLeverancier with data
+-- **********************************************************************************
+
+-- Version       Date:           Author:                     Description:
+-- *******       **********      ****************            ******************
+-- 01            04-04-2023      Arjan de Ruijter            New
+-- **********************************************************************************  
+INSERT INTO ProductPerLeverancier 
+(LeverancierId
+, ProductId
+, DatumLevering
+, Aantal
+, DatumEerstVolgendeLevering
+,IsActief
+    ,Opmerkingen
+    ,DatumAangemaakt
+    ,DatumGewijzigd)
+    VALUES  (1, 1,'2023-04-09',23,'2023-04-09',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (1,1, '2023-04-18',21,'2023-04-25',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (1,2, '2023-04-09',12,'2023-04-16',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (1,3, '2023-04-10',11,'2023-04-17',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (2,4, '2023-04-14',16,'2023-04-21',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (2,4, '2023-04-21',23,'2023-04-28',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (2,5, '2023-04-14',45,'2023-04-21',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (2,6, '2023-04-14',30,'2023-04-21',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (3,7, '2023-04-12',12,'2023-04-19',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (3,7, '2023-04-19',23,'2023-04-26',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (3,8, '2023-04-10',12,'2023-04-17',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (3,9, '2023-04-11',1, '2023-04-18',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (4,10,'2023-04-16',24,'2023-04-30',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (5,11,'2023-04-10',47,'2023-04-17',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (5,11,'2023-04-10',60,'2023-04-26',1, NULL, SYSDATE(6), SYSDATE(6)),
+            (5,12,'2023-04-11',45,NULL,1, NULL, SYSDATE(6), SYSDATE(6)),
+            (5,13,'2023-04-12',23,NULL,1, NULL, SYSDATE(6), SYSDATE(6));
+            -- Step: 08
+-- Goal: Create a new table Leverancier
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
 -- *******       **********      ****************            ******************
 -- 01            04-04-2023      Arjan de Ruijter            New
 -- **********************************************************************************/
 
--- Drop table VoertuigInstructeur
-DROP TABLE IF EXISTS VoertuigInstructeur;
+-- Drop table Leverancier
+DROP TABLE IF EXISTS Leverancier;
 
-CREATE TABLE IF NOT EXISTS VoertuigInstructeur
+CREATE TABLE IF NOT EXISTS Leverancier
 (
     Id                  TINYINT         UNSIGNED        NOT NULL    AUTO_INCREMENT
-   ,VoertuigId          TINYINT         UNSIGNED        NOT NULL
-   ,InstructeurId       TINYINT         UNSIGNED        NOT NULL
-   ,DatumToekenning     DATE                            NOT NULL
+   ,Naam                VARCHAR(50)                     NOT NULL
+   ,ContactPersoon      VARCHAR(30)                     NOT NULL
+   ,LeverancierNummer   VARCHAR(30)                     NOT NULL
+   ,Mobiel               VARCHAR(15)                     NOT NULL
    ,IsActief            BIT                             NOT NULL    DEFAULT 1
    ,Opmerkingen         VARCHAR(250)                        NULL    DEFAULT NULL
    ,DatumAangemaakt     DateTime(6)                     NOT NULL
    ,DatumGewijzigd      DateTime(6)                     NOT NULL
 
-   ,CONSTRAINT      PK_VoertuigInstructeur_Id   PRIMARY KEY CLUSTERED(Id)
-   ,CONSTRAINT      FK_VoertuigInstructeur_VoertuigId_Voertuig_Id  FOREIGN KEY (VoertuigId) REFERENCES Voertuig(Id)
-   ,CONSTRAINT      FK_VoertuigInstructeur_InstructeurId_Instructeur_Id  FOREIGN KEY (InstructeurId) REFERENCES Instructeur(Id)
+   ,CONSTRAINT      PK_Leverancier_Id   PRIMARY KEY CLUSTERED(Id)
 ) ENGINE=InnoDB;
-
-
--- Step: 09
--- Goal: Fill table VoertuigInstructeur with data
+-- Step: 10
+-- Goal: Fill table ProductPerLeverancier with data
 -- **********************************************************************************
 
 -- Version       Date:           Author:                     Description:
 -- *******       **********      ****************            ******************
 -- 01            04-04-2023      Arjan de Ruijter            New
--- **********************************************************************************/
+-- **********************************************************************************  
+INSERT INTO
+ Leverancier 
+ (Naam,                   
+ ContactPersoon,     
+ LeverancierNummer,  
+ Mobiel
+ ,IsActief       
+,Opmerkingen    
+,DatumAangemaakt
+,DatumGewijzigd )
+    VALUES  ('Venco','Bert van Linge','L102 93 84 719','06-28493827',1, NULL, SYSDATE(6), SYSDATE(6)),
+            ('Astra sweets','Jasper del Monte','L102 92 84 315','06-39398734',1, NULL, SYSDATE(6), SYSDATE(6)),
+            ('Haribo','Sven Stalman','L102 93 24 748','06-24383292',1, NULL, SYSDATE(6), SYSDATE(6)),
+            ('Joyce  Stelterberg','Jasper del Monte', 'L102 38 45 773',   '06-48293823',1, NULL, SYSDATE(6), SYSDATE(6)),
+            ('De Bron','Remco Veenstra','L102 38 57 736','06-34291234',1, NULL, SYSDATE(6), SYSDATE(6)),
+            ('Quality Street','Johan Nooij','L102 92 34 586','06-23458456',1, NULL, SYSDATE(6), SYSDATE(6));
 
-INSERT INTO VoertuigInstructeur
-(
-     VoertuigId
-    ,InstructeurId
-    ,DatumToekenning
-    ,IsActief
-    ,Opmerkingen
-    ,DatumAangemaakt
-    ,DatumGewijzigd
-)
-VALUES
-     (1, 5, '2017-06-18', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(3, 1, '2021-09-26', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(9, 1, '2021-09-27', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(4, 4, '2022-08-01', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(5, 1, '2019-08-30', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(10, 5, '2020-02-02', 1, NULL, SYSDATE(6), SYSDATE(6));
-   
+ALTER TABLE Magazijn
+ADD FOREIGN KEY (ProductId) REFERENCES Product(Id);
+    ALTER TABLE ProductPerAllergeen
+    ADD FOREIGN KEY (AllergeenId) REFERENCES Allergeen(Id);
+    ALTER TABLE ProductPerLeverancier
+    ADD FOREIGN KEY (LeverancierId) REFERENCES Leverancier(Id);
