@@ -20,6 +20,7 @@
             <th>AantalAanwezig</th>
             <th>Allergenen Info</th>
             <th>Leverantie Info</th>
+            <!-- // $producten->LeverancierId -->
         </thead>
         <tbody>
             <h4> <u>overzicht Magazijn Jamin</u></h4>
@@ -31,9 +32,8 @@
                 echo '<td>' . $producten->Naam . '</td>';
                 echo '<td>' . $producten->Barcode . '</td>';
                 echo '<td>' . $producten->AantalAanwezig . '</td>';
-                echo '<td>' . '<a href = "' . URLROOT . '' . '<i class="bi bi-x"></i>' . '</td>';
-                echo '<td>' . '<a href = "' . URLROOT . '/Jamin/leveringInformatie/' . $producten->LeverancierId . '/' . $producten->Id . '"' . '<i class="bi bi-question"></i>' . '</td>
-
+                echo '<td><a href="' . URLROOT . '/Jamin/allergenenOverzicht/"><i class="bi bi-x"></i></a></td>';
+                echo '<td>' . '<a href = "' . URLROOT . '/Jamin/leveringInformatie/' . $producten->Id . '"' . '<i class="bi bi-question"></i>' . '</td>
                 </tr>';
             } ?>
         </tbody>

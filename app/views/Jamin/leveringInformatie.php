@@ -45,23 +45,37 @@
     // var_dump($data['leverancierInfo']);
     ?>
     <table>
-        <?php foreach ($data['leveringInfo'] as $levering) : ?>
-            <tr>
-                <th>Naam product:</th>
-                <th>Datum Levering:</th>
-                <th>Aantal:</th>
-                <th>EerstVolgendeLevering:</th>
-            </tr>
-            <tr>
-                <td> <?= $levering->Naam ?></td>
-                <td> <?= $levering->DatumLevering ?></td>
-                <td> <?= $levering->Aantal ?></td>
-                <td> <?= $levering->DatumEerstVolgendeLevering ?></td>
-                <!-- <th>Naam product:</th>
-                <td> <?= $levering->DatumEerstVolgendeLevering ?></td>
-            </tr> -->
+        <tr>
+            <th>Naam product:</th>
+            <th>Datum Levering:</th>
+            <th>Aantal:</th>
+            <th>EerstVolgendeLevering:</th>
+        </tr>
 
-            <?php endforeach ?>
+        <!-- <?php var_dump($data['leveringInfo']);
+                ?> -->
+        <?php foreach ($data['leveringInfo'] as $levering) :
+            // echo $levering->AantalAanwezig;
+        ?>
+
+            <?php if ($levering->AantalAanwezig == 0) :
+            ?>
+                <tr>
+                    <td>
+                        Er is van dit product op dit moment geen voorraad aanwezig,de verwachte eerstvolgende levering is: 30-04-2023
+                    </td>
+                </tr>
+            <?php else : ?>
+                <tr>
+                    <td> <?= $levering->Naam ?></td>
+                    <td> <?= $levering->DatumLevering ?></td>
+                    <td> <?= $levering->Aantal ?></td>
+                    <td> <?= $levering->DatumEerstVolgendeLevering ?></td>
+                </tr>
+
+
+            <?php endif; ?>
+        <?php endforeach; ?>
     </table>
 </body>
 

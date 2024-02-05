@@ -17,33 +17,13 @@ class Jamin extends BaseController
         $this->view('Jamin/overzichtMagazijn', $overzicht);
     }
 
-
-    public function leveringInformatie($LeverancierId, $Id)
+    public function leveringInformatie($Id)
     {
         // Hiermee verwijs ik naar de model en dan naar de getleverancierInfo functie en dan stop ik dat in een variabele
-        $leverancierInfo = $this->JaminModel->getleverancierInfo($LeverancierId);
+        $leverancierInfo = $this->JaminModel->getleverancierInfo($Id);
         $leveringInfo = $this->JaminModel->getleveringInformatiebyId($Id);
-        // ik maak een variabele voor elke info die ik wil laten zien en dan stop ik die in een array en roep 
         // var_dump($leveringInfo);
-        // ik die aan in de view 
-        // wat er achter het pijltje staat zijn de namen die in de Model staan
-        // $naamLeverancier = $leverancierInfo->Naam;
-        // $contactPersoonLeverancier = $leverancierInfo->ContactPersoon;
-        // $leverancierNummer = $leverancierInfo->LeverancierNummer;
-        // $mobiel = $leverancierInfo->Mobiel;
-        // $naam = $leveringInfo->Naam;
-        // $aantal = $leveringInfo->Aantal;
-        // $datumLevering = $leverancierInfo->DatumLevering;
-        // $datumeerstevolgendelevering = $leverancierInfo->DatumEerstVolgendeLevering;
         $data = [
-            // 'NaamLeverancier' => $naamLeverancier,
-            // 'ContactPersoonLeverancier' => $contactPersoonLeverancier,
-            // 'LeverancierNummer' => $leverancierNummer,
-            // 'Mobiel' => $mobiel,
-            // 'Naam' => $naam,
-            // 'Aantal' => $aantal,
-            // 'DatumLevering' => $datumLevering,
-            // 'DatumEerstVolgendeLevering' => $datumeerstevolgendelevering
             'leverancierInfo' => $leverancierInfo,
             'leveringInfo' => $leveringInfo
         ];
@@ -52,5 +32,10 @@ class Jamin extends BaseController
         // var_dump($leveringInfo);
         // Die Jamin is het mapje en leveringInformatie is de file in die map
         $this->view('Jamin/leveringInformatie', $data);
+    }
+    public function overzichtAllergenen()
+    {
+        $overzicht = $this->JaminModel->getOverzichtMagazijn();
+        $this->view('Jamin/allergenenOverzicht');
     }
 }

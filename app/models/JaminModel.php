@@ -14,12 +14,13 @@ class JaminModel
                       ,Naam
                       ,Barcode
                       ,AantalAanwezig
-                      ,LeverancierId
+                    --   ,LeverancierId
                     FROM Product AS PRO
                     INNER JOIN Magazijn AS MAG
                     ON MAG.Id = PRO.Id
-                    INNER JOIN ProductPerLeverancier as PPL
-                    ON PPL.ProductId = PRO.Id
+                    -- INNER JOIN ProductPerLeverancier as PPL
+                    -- ON PPL.ProductId = PRO.Id
+                    -- GROUP BY PRO.Id
                     ORDER BY Barcode asc";
 
         $this->db->query($sql);
@@ -34,15 +35,18 @@ class JaminModel
                       ,PRPL.Aantal
                       ,PRPL.DatumEerstVolgendeLevering
                       ,PRO.Naam
+                      ,MAG.AantalAanwezig
                 FROM ProductPerLeverancier as PRPL
                 INNER JOIN Product as PRO
-                ON PRO.Id = PRPL.Id
+                ON PRO.Id = PRPL.ProductId
+                INNER JOIN Magazijn MAG
+                ON PRO.Id = MAG.ProductId
                 WHERE PRO.Id = $Id";
         $this->db->query($sql);
 
         return $this->db->resultSet();
     }
-    public function getleveringInformatieby($Id)
+    public function getleveringInformatie($Id)
     {
         $sql = "SELECT PRPL.Id
                       ,PRPL.LeverancierId
@@ -51,23 +55,31 @@ class JaminModel
                       ,PRPL.Aantal
                       ,PRPL.DatumEerstVolgendeLevering
                       ,PRO.Naam
-                FROM ProductPerLeverancier as PRPL
-                INNER JOIN Product as PRO
-                ON PRO.Id = PRPL.Id
-                WHERE PRO.Id = $Id";
+                      ,MAG.AantalAanwezig
+                FROM Product as PRO
+                INNER JOIN ProductPerLeverancier as PRPL
+                ON PRO.Id = MAG.ProductId
+                WHERE PRO.Id = PRPL.ProductId
+                INNER JOIN Magazijn as MAG
+                ON PRO.Id = MAG.ProductId
+                WHERE PRO.Id = $Id
+                ORDER BY PRPL.DatumLevering asc";
         $this->db->query($sql);
 
         return $this->db->resultSet();
     }
-    public function getleverancierInfo($LeverancierId)
+    public function getleverancierInfo($Id)
     {
-        $sql = "SELECT Id
+        $sql = "SELECT LEV.Id
                       ,Naam
                       ,ContactPersoon
                       ,LeverancierNummer
                       ,Mobiel
-                FROM Leverancier
-                WHERE Id = $LeverancierId";
+                FROM Leverancier as LEV
+                INNER JOIN ProductPerLeverancier PPL
+                ON LEV.Id = PPL.LeverancierId
+                WHERE PPL.ProductId = $Id
+                GROUP BY LEV.Id";
         $this->db->query($sql);
 
         return $this->db->resultSet();
