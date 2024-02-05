@@ -11,7 +11,7 @@
 
 <body>
     <h3><?= $data['title']; ?></h3>
-    <a href="<?= URLROOT; ?>/Instructeur/overzichtinstructeur">Overzicht Magazijn Jamin</a>
+    <a href="<?= URLROOT; ?>/Jamin/overzichtMagazijn">Overzicht Magazijn Jamin</a>
 </body>
 
 </html>
