@@ -40,7 +40,24 @@ class JaminModel
                 WHERE PRO.Id = $Id";
         $this->db->query($sql);
 
-        return $this->db->single();
+        return $this->db->resultSet();
+    }
+    public function getleveringInformatieby($Id)
+    {
+        $sql = "SELECT PRPL.Id
+                      ,PRPL.LeverancierId
+                      ,PRPL.ProductId
+                      ,PRPL.DatumLevering
+                      ,PRPL.Aantal
+                      ,PRPL.DatumEerstVolgendeLevering
+                      ,PRO.Naam
+                FROM ProductPerLeverancier as PRPL
+                INNER JOIN Product as PRO
+                ON PRO.Id = PRPL.Id
+                WHERE PRO.Id = $Id";
+        $this->db->query($sql);
+
+        return $this->db->resultSet();
     }
     public function getleverancierInfo($LeverancierId)
     {
@@ -53,6 +70,6 @@ class JaminModel
                 WHERE Id = $LeverancierId";
         $this->db->query($sql);
 
-        return $this->db->single();
+        return $this->db->resultSet();
     }
 }

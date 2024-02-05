@@ -14,43 +14,55 @@
     <h4><u>Levering's Informatie</u></h4>
     <table>
         <thead>
-            <tr>
-                <th>Naam Leverancier:</th>
-                <td><?= $data['NaamLeverancier'] ?></td>
-            </tr>
-            <tr>
-                <th>Contact persoon Leverancier:</th>
-                <td><?= $data['ContactPersoonLeverancier'] ?></td>
-            </tr>
-            <tr>
-                <th>Leverancier Nummer:</th>
-                <td><?= $data['LeverancierNummer'] ?></td>
-            </tr>
-            <tr>
-                <th>Mobiel:</th>
-                <td><?= $data['Mobiel'] ?></td>
-            </tr>
-        </thead>
-        <tbody>
             <?php
-            // var_dump($data);
-            var_dump($data['Naam']);
-            ?>
 
-            <?php foreach ($data as $levering) {
+            // var_dump($data['leverancierInfo']);
 
-                // $product = $this->JaminModel->getOverzichtMagazijn();
+            foreach ($data['leverancierInfo'] as $leverancier) : ?>
 
-                // echo '<tr><td>' . $producten->Id . '</td>';
-                echo '<td>' . $levering->Naam . '</td>';
-                echo '<td>' . $levering->DatumLevering . '</td>';
-                echo '<td>' . $levering->Aantal . '</td>';
-                echo '<td>' . $levering->DatumEerstVolgendeLevering . '</td>
-                 </tr>';
-            } ?>
-        </tbody>
+                <tr>
+                    <th>Naam Leverancier:</th>
+                    <td> <?= $leverancier->Naam ?> </td>
+                </tr>
+                <tr>
+                    <th>Contact persoon Leverancier:</th>
+                    <td> <?= $leverancier->ContactPersoon ?> </td>
+                </tr>
+                <tr>
+                    <th>Leverancier Nummer:</th>
+                    <td> <?= $leverancier->LeverancierNummer ?> </td>
+                </tr>
+                <tr>
+                    <th>Mobiel:</th>
+                    <td> <?= $leverancier->Mobiel ?> </td>
+                </tr>
+            <?php endforeach ?>
+        </thead>
     </table>
 
+    <?php
+    // var_dump($data['leveringInfo']);
+    // var_dump($data['leverancierInfo']);
+    ?>
+    <table>
+        <?php foreach ($data['leveringInfo'] as $levering) : ?>
+            <tr>
+                <th>Naam product:</th>
+                <th>Datum Levering:</th>
+                <th>Aantal:</th>
+                <th>EerstVolgendeLevering:</th>
+            </tr>
+            <tr>
+                <td> <?= $levering->Naam ?></td>
+                <td> <?= $levering->DatumLevering ?></td>
+                <td> <?= $levering->Aantal ?></td>
+                <td> <?= $levering->DatumEerstVolgendeLevering ?></td>
+                <!-- <th>Naam product:</th>
+                <td> <?= $levering->DatumEerstVolgendeLevering ?></td>
+            </tr> -->
+
+            <?php endforeach ?>
+    </table>
 </body>
 
 </html>

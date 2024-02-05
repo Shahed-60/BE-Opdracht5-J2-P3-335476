@@ -259,9 +259,9 @@ CREATE TABLE IF NOT EXISTS ProductPerLeverancier
    Id                          INT             UNSIGNED         NOT NULL    AUTO_INCREMENT
    ,LeverancierId               TINYINT            UNSIGNED                 NOT NULL
    ,ProductId                   INT            UNSIGNED                 NOT NULL
-   ,DatumLevering               DATETIME                        NOT NULL
+   ,DatumLevering               DATE                        NOT NULL
    ,Aantal                      INT                             NOT NULL 
-   ,DatumEerstVolgendeLevering DATETIME                         NULL
+   ,DatumEerstVolgendeLevering DATE                         NULL
    ,IsActief                    BIT                             NOT NULL    DEFAULT 1
    ,Opmerkingen                 VARCHAR(250)                        NULL    DEFAULT NULL
    ,DatumAangemaakt             DateTime(6)                     NOT NULL
