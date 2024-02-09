@@ -12,24 +12,38 @@
 
 
 <body>
+    <h4> <u>overzicht Allergenen</u></h4>
     <table>
         <thead>
-            <tr>
-                <th>Naam:</th>
-                <td> </td>
-            </tr>
-            <tr>
-                <th>Barcode:</th>
-                <td> </td>
-            </tr>
+            <?php
+            // var_dump($data['productInfo']);
+
+            foreach ($data['productInfo'] as $productInfo) : ?>
+                <tr>
+                    <th>Naam:</th>
+                    <td><?= $productInfo->Naam ?></td>
+                </tr>
+                <tr>
+                    <th>Barcode:</th>
+                    <td><?= $productInfo->Barcode ?></td>
+                </tr>
+            <?php endforeach ?>
+
             <table>
                 <thead>
+
                     <th>Naam</th>
                     <th>Omschrijving</th>
-
                 </thead>
                 <tbody>
-                    <h4> <u>overzicht Allergenen</u></h4>
+                    <?php
+                    foreach ($data['overzichtAllergeen'] as $overzicht) : ?>
+                        <tr>
+                            <td><?= $overzicht->Naam ?></td>
+                            <td><?= $overzicht->Omschrijving ?></td>
+                        </tr>
+
+                    <?php endforeach ?>
 
                 </tbody>
             </table>

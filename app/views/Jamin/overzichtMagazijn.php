@@ -32,7 +32,7 @@
                 echo '<td>' . $producten->Naam . '</td>';
                 echo '<td>' . $producten->Barcode . '</td>';
                 echo '<td>' . $producten->AantalAanwezig . '</td>';
-                echo '<td><a href="' . URLROOT . '/Jamin/allergenenOverzicht/"><i class="bi bi-x"></i></a></td>';
+                echo '<td>' . '<a href = "' . URLROOT . '/Jamin/allergenenOverzicht/' . $producten->Id . '"' . '<i class="bi bi-x"></i></i>' . '</td>';
                 echo '<td>' . '<a href = "' . URLROOT . '/Jamin/leveringInformatie/' . $producten->Id . '"' . '<i class="bi bi-question"></i>' . '</td>
                 </tr>';
             } ?>

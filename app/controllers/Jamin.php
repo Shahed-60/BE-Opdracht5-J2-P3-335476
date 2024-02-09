@@ -25,7 +25,7 @@ class Jamin extends BaseController
         // var_dump($leveringInfo);
         $data = [
             'leverancierInfo' => $leverancierInfo,
-            'leveringInfo' => $leveringInfo
+            'leveringInfo' => $leveringInfo,
         ];
         // Hiermee roep ik een view aan, hij gaat eerst naar de Controller en dan naar de view 
         // Nooit van een view naar een view aanroepen moet altijd via een controller
@@ -33,9 +33,23 @@ class Jamin extends BaseController
         // Die Jamin is het mapje en leveringInformatie is de file in die map
         $this->view('Jamin/leveringInformatie', $data);
     }
-    public function overzichtAllergenen()
+    // Een belangrijk iets om te altijd te onthouden
+    // Als en een nieuwe View maakt zorg er voor dat de view naam en de functie naam overeenkomen met elkaar anders 
+    // gaat die een error geven en ,omdat we voor de view een 
+    public function allergenenOverzicht($productId)
     {
-        $overzicht = $this->JaminModel->getOverzichtMagazijn();
-        $this->view('Jamin/allergenenOverzicht');
+        // Ik defenieer in de productinfo de gegevens die ik wil laten zien en dat is de naar en basrcode van het product 
+        // en die zitten in de getOverzichtMagazijn() in de model
+        // Ik geeft hiermee de parameter $productId zodat die weet dat ik een product wil zien en niet alle producten
+        // En in de model bij getOverzichtMagazijnById geef ik die parameter ook mee
+        $porductInfo = $this->JaminModel->getOverzichtMagazijnById($productId);
+        $overzichtAll = $this->JaminModel->productPerAllergeen($productId);
+        $data = [
+            'productInfo' => $porductInfo,
+            'overzichtAllergeen' => $overzichtAll
+        ];
+        // var_dump($overzichtAll);
+        // en met de view stuur ik de data mee zo dat ze te zien zijn.
+        $this->view('Jamin/allergenenOverzicht', $data);
     }
 }

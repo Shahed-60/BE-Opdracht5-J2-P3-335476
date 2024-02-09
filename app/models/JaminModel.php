@@ -23,9 +23,31 @@ class JaminModel
                     -- GROUP BY PRO.Id
                     ORDER BY Barcode asc";
 
+
         $this->db->query($sql);
         return $this->db->resultSet();
     }
+    public function getOverzichtMagazijnById($productId)
+    {
+        $sql = "SELECT PRO.Id
+                      ,Naam
+                      ,Barcode
+                      ,AantalAanwezig
+                    --   ,LeverancierId
+                    FROM Product AS PRO
+                    INNER JOIN Magazijn AS MAG
+                    ON MAG.Id = PRO.Id
+                    WHERE PRO.Id = $productId
+                    -- INNER JOIN ProductPerLeverancier as PPL
+                    -- ON PPL.ProductId = PRO.Id
+                    -- GROUP BY PRO.Id
+                    ORDER BY Barcode asc";
+
+
+        $this->db->query($sql);
+        return $this->db->resultSet();
+    }
+
     public function getleveringInformatiebyId($Id)
     {
         $sql = "SELECT PRPL.Id
@@ -82,6 +104,24 @@ class JaminModel
                 GROUP BY LEV.Id";
         $this->db->query($sql);
 
+        return $this->db->resultSet();
+    }
+    public function productPerAllergeen($productId)
+    {
+        $sql = "SELECT PPA.ProductId
+                       ,PPA.AllergeenId
+                       ,ALLE.Id
+                       ,ALLE.Naam
+                       ,ALLE.Omschrijving
+                FROM Allergeen as ALLE
+                INNER JOIN ProductPerAllergeen as PPA
+                ON  ALLE.Id = PPA.AllergeenId
+                WHERE PPA.ProductId = $productId
+                ";
+
+        // var_dump($sql);
+        // exit();
+        $this->db->query($sql);
         return $this->db->resultSet();
     }
 }
