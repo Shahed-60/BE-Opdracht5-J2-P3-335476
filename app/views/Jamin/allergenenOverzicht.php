@@ -16,7 +16,10 @@
     <table>
         <thead>
             <?php
-            // var_dump($data['productInfo']);
+            // var_dump($data['overzichtAllergeen']);
+            // if (empty($data['overzichtAllergeen'])) {
+            //     echo "Leeg";
+            // }
 
             foreach ($data['productInfo'] as $productInfo) : ?>
                 <tr>
@@ -36,14 +39,24 @@
                     <th>Omschrijving</th>
                 </thead>
                 <tbody>
-                    <?php
-                    foreach ($data['overzichtAllergeen'] as $overzicht) : ?>
-                        <tr>
-                            <td><?= $overzicht->Naam ?></td>
-                            <td><?= $overzicht->Omschrijving ?></td>
-                        </tr>
 
-                    <?php endforeach ?>
+                    <?php if (empty(($data['overzichtAllergeen']))) :
+                    ?>
+                        <tr>
+                            <td colspan='6'>
+                                In dit product zitten geen stoffen die een allergische reacties kunnen veroorzaken </td>
+                        </tr>
+                    <?php else : ?>
+                        <?php
+                        foreach ($data['overzichtAllergeen'] as $overzicht) : ?>
+
+
+                            <tr>
+                                <td><?= $overzicht->Naam ?></td>
+                                <td><?= $overzicht->Omschrijving ?></td>
+                            </tr>
+                        <?php endforeach ?>
+                    <?php endif; ?>
 
                 </tbody>
             </table>

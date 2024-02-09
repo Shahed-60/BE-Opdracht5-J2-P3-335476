@@ -6,4 +6,4 @@ define('DB_PASS', '');
 define('DB_NAME', 'Be-opdracht05');
 // define('DB_NAME', 'Jamin');
 
-define('URLROOT', 'http://be-opdracht5-j2-p3-335476.com');
+define('URLROOT', 'http://be-opdrachten-j2-p3-335476.com/');
