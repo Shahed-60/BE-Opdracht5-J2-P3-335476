@@ -41,7 +41,7 @@ class JaminModel
                     -- INNER JOIN ProductPerLeverancier as PPL
                     -- ON PPL.ProductId = PRO.Id
                     -- GROUP BY PRO.Id
-                    ORDER BY Barcode asc";
+                    ORDER BY Barcode desc";
 
 
         $this->db->query($sql);
@@ -121,6 +121,26 @@ class JaminModel
 
         // var_dump($sql);
         // exit();
+        $this->db->query($sql);
+        return $this->db->resultSet();
+    }
+    public function overzichtLeverancier()
+    {
+        $sql = "SELECT 
+                      LEV.Id
+                      ,LEV.Naam
+                      ,LEV.ContactPersoon
+                      ,LEV.LeverancierNummer
+                      ,LEV.Mobiel
+                      ,Aantal
+                      ,Count(DISTINCT ProductId) as Aantal
+                      ,PPL.Id
+                FROM Leverancier as LEV
+                INNER JOIN ProductPerLeverancier as PPL
+                ON LEV.Id = PPL.LeverancierId
+                GROUP BY PPL.LeverancierId
+                ORDER BY Aantal DESC";
+
         $this->db->query($sql);
         return $this->db->resultSet();
     }

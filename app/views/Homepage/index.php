@@ -11,7 +11,9 @@
 
 <body>
     <h3><?= $data['title']; ?></h3>
-    <a href="<?= URLROOT; ?>/Jamin/overzichtMagazijn">Overzicht Magazijn Jamin</a>
+    <a href="<?= URLROOT; ?>/Jamin/overzichtMagazijn">Overzicht Magazijn Jamin</a><br>
+    <a href="<?= URLROOT; ?>/Jamin/overzichtLeverancier">Overzicht Leverancier</a>
+
 </body>
 
 </html>

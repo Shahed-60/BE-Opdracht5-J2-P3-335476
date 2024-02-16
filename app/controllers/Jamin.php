@@ -52,4 +52,9 @@ class Jamin extends BaseController
         // en met de view stuur ik de data mee zo dat ze te zien zijn.
         $this->view('Jamin/allergenenOverzicht', $data);
     }
+    public function overzichtLeverancier()
+    {
+        $overzicht = $this->JaminModel->overzichtLeverancier();
+        $this->view('Jamin/overzichtLeverancier', $overzicht);
+    }
 }
