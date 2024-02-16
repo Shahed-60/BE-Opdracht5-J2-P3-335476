@@ -68,6 +68,15 @@ class JaminModel
 
         return $this->db->resultSet();
     }
+    // Met meneer arjan een StoredProcedures gemaakt
+    // public function getleveringInformatiebyId($Id)
+    // {
+    //     $sql = "CALL spGetSelectLeveringinfoById($Id)";
+    //     $this->db->query($sql);
+
+    //     return $this->db->resultSet();
+    // }
+
     public function getleveringInformatie($Id)
     {
         $sql = "SELECT PRPL.Id
