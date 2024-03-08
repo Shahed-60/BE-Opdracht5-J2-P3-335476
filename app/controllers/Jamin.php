@@ -55,10 +55,12 @@ class Jamin extends BaseController
     public function overzichtLeverancier()
     {
         $overzicht = $this->JaminModel->overzichtLeverancier();
+        // var_dump($overzicht);
         $this->view('Jamin/overzichtLeverancier', $overzicht);
     }
-    public function geleverdeProductenOverzicht()
+    public function geleverdeProductenOverzicht($Id)
     {
-        $this->view('Jamin/geleverdeProductenOverzicht');
+        $data = $this->JaminModel->getleverancier($Id);
+        $this->view('Jamin/geleverdeProductenOverzicht', $data);
     }
 }

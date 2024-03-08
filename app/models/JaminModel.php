@@ -136,14 +136,14 @@ class JaminModel
     public function overzichtLeverancier()
     {
         $sql = "SELECT 
-                      LEV.Id
+                      LEV.Id AS LeverancierId
                       ,LEV.Naam
                       ,LEV.ContactPersoon
                       ,LEV.LeverancierNummer
                       ,LEV.Mobiel
                       ,Aantal
                       ,Count(DISTINCT ProductId) as Aantal
-                      ,PPL.Id
+                      ,PPL.Id as ProductPerLeverancierId
                 FROM Leverancier as LEV
                 INNER JOIN ProductPerLeverancier as PPL
                 ON LEV.Id = PPL.LeverancierId
@@ -151,6 +151,18 @@ class JaminModel
                 ORDER BY Aantal DESC";
 
         $this->db->query($sql);
+        return $this->db->resultSet();
+    }
+    public function getleverancier($Id)
+    {
+        $sql = "SELECT Naam,
+                       ContactPersoon,
+                       LeverancierNummer,
+                       Mobiel
+                FROM Leverancier
+                Where Id = :id";
+        $this->db->query($sql);
+        $this->db->bind(':id', $Id);
         return $this->db->resultSet();
     }
 }

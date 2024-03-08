@@ -35,10 +35,8 @@
                     <td><?= $leverancierOverzicht->Aantal ?></td>
 
 
-                    <td><a href="URLROOT . '/Jamin/geleverdeProductenOverzicht/'"><i class="bi bi-box-seam"></i></a>
+                    <td><a href="<?= URLROOT; ?>/Jamin/geleverdeProductenOverzicht/<?= $leverancierOverzicht->LeverancierId; ?>"><i class="bi bi-box-seam"></i></a>
                     </td>
-                    <!-- echo '<td>' . '<a href = "' . URLROOT . '/Jamin/leveringInformatie/' . $producten->Id . '"' . '<i class="bi bi-question"></i>' . '</td> -->
-
                 </tr>
             <?php endforeach ?>
         </tbody>

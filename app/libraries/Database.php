@@ -44,10 +44,26 @@ class Database
         $this->statement->execute();
         return $this->statement->fetch(PDO::FETCH_OBJ);
     }
-    public function bind($param, $value)
+    public function bind($param, $value, $type = null)
     {
-        $this->statement->bindValue($param, $value);
+        if (is_null($type)) {
+            switch (true) {
+                case is_int($value):
+                    $type = PDO::PARAM_INT;
+                    break;
+                case is_bool($value):
+                    $type = PDO::PARAM_BOOL;
+                    break;
+                case is_null($value):
+                    $type = PDO::PARAM_NULL;
+                    break;
+                default:
+                    $type = PDO::PARAM_STR;
+            }
+        }
+        $this->statement->bindValue($param, $value, $type);
     }
+
     public function execute()
     {
         $this->statement->execute();

@@ -10,21 +10,35 @@
     <title>Geleverde Producten</title>
 </head>
 
-
 <body>
     <h4> <u>Geleverde Producten</u></h4>
     <table>
         <thead>
+            <?php
+            // var_dump($data);
+            foreach ($data as $leverancierInfo) : ?>
+                <tr>
+                    <th>Naam Leverancier:</th>
+                    <td><?= $leverancierInfo->Naam ?></td>
+                </tr>
+                <tr>
+                    <th>ContactPersoon:</th>
+                    <td><?= $leverancierInfo->ContactPersoon ?></td>
+                </tr>
+                <tr>
+                    <th>Leverancier Nummer:</th>
+                    <td><?= $leverancierInfo->LeverancierNummer ?></td>
+                </tr>
+                <tr>
+                    <th>Mobiel:</th>
+                    <td><?= $leverancierInfo->Mobiel ?></td>
+                </tr>
 
-            <table>
-                <thead>
-
-                    <th>Naam</th>
-                    <th>Omschrijving</th>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+        </thead>
+    <?php endforeach; ?>
+    <tbody>
+    </tbody>
+    </table>
 </body>
 
 </html>
