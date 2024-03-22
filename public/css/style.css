@@ -9,6 +9,10 @@ table {
     border-collapse: collapse;
     margin-top: 1em;
     text-align: left;
+    margin-bottom: 2rem;
+}
+.knop{
+    margin: .3rem;
 }
 
 th,

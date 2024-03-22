@@ -145,7 +145,7 @@ class JaminModel
                       ,Count(DISTINCT ProductId) as Aantal
                       ,PPL.Id as ProductPerLeverancierId
                 FROM Leverancier as LEV
-                INNER JOIN ProductPerLeverancier as PPL
+                LEFT JOIN ProductPerLeverancier as PPL
                 ON LEV.Id = PPL.LeverancierId
                 GROUP BY PPL.LeverancierId
                 ORDER BY Aantal DESC";
@@ -163,6 +163,26 @@ class JaminModel
                 Where Id = :id";
         $this->db->query($sql);
         $this->db->bind(':id', $Id);
+        return $this->db->resultSet();
+    }
+    public function getProductPerLeverancier($Id)
+    {
+        $sql = "SELECT 
+                PRO.Naam,
+                MAG.AantalAanwezig,
+                MAG.VerpakkingsEenheid,
+                MAX(DatumLevering) laatsteLevering
+                FROM ProductPerLeverancier as PPL
+                INNER JOIN Product as PRO
+                ON PRO.Id = PPL.ProductId
+                INNER JOIN Magazijn as MAG
+                ON PPL.ProductId = MAG.ProductId
+                WHERE PPL.LeverancierId = :Id
+                GROUP BY PRO.Naam
+                ORDER BY MAG.AantalAanwezig desc";
+
+        $this->db->query($sql);
+        $this->db->bind(':Id', $Id);
         return $this->db->resultSet();
     }
 }

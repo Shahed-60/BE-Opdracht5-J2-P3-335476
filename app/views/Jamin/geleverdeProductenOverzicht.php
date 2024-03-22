@@ -16,7 +16,7 @@
         <thead>
             <?php
             // var_dump($data);
-            foreach ($data as $leverancierInfo) : ?>
+            foreach ($data['leverancierInfo'] as $leverancierInfo) : ?>
                 <tr>
                     <th>Naam Leverancier:</th>
                     <td><?= $leverancierInfo->Naam ?></td>
@@ -36,9 +36,47 @@
 
         </thead>
     <?php endforeach; ?>
-    <tbody>
-    </tbody>
     </table>
+    <table>
+        <thead>
+            <tr>
+                <td>Naam Product</td>
+                <td>Aantal in Magazijn</td>
+                <td>VerpakkingsEenheid</td>
+                <td>laatsteLevering</td>
+                <td>Nieuwe Levering</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php if (empty(($data['ProductPerLeverancierInfo']))) :
+            ?>
+                <tr>
+                    <td colspan='6'>
+                        Dit bedrijf heeft tot nu toe geen producten geleverd aan Jamin </td>
+                </tr>
+            <?php else : ?>
+            <?php endif; ?>
+
+            <?php
+            foreach ($data['ProductPerLeverancierInfo'] as $ProductPerLeverancier) : ?>
+                <tr>
+                    <td><?= $ProductPerLeverancier->Naam ?></td>
+                    <td><?= $ProductPerLeverancier->AantalAanwezig ?></td>
+                    <td><?= $ProductPerLeverancier->VerpakkingsEenheid ?></td>
+                    <td><?= $ProductPerLeverancier->laatsteLevering ?></td>
+
+                    <!-- <td><a href="<?= URLROOT; ?>/Jamin/geleverdeProductenOverzicht/<?= $ProductPerLeverancier->LeverancierId; ?>"><i class="bi bi-box-seam"></i></a> -->
+                    <td><a href="<?= URLROOT; ?>/Jamin/geleverdeProductenOverzicht/"><i class="bi bi-plus"></i></a>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+    <a href="<?= URLROOT; ?>/Jamin/overzichtLeverancier" class="knop">Terug
+    </a>
+    <a href="<?= URLROOT; ?>/Homepage/index" class="knop">Home</a>
+
 </body>
 
 </html>

@@ -60,7 +60,13 @@ class Jamin extends BaseController
     }
     public function geleverdeProductenOverzicht($Id)
     {
-        $data = $this->JaminModel->getleverancier($Id);
+        $leverancierInfo = $this->JaminModel->getleverancier($Id);
+        $ProductPerLeverancierInfo = $this->JaminModel->getProductPerLeverancier($Id);
+        $data = [
+            'leverancierInfo' => $leverancierInfo,
+            'ProductPerLeverancierInfo' => $ProductPerLeverancierInfo
+        ];
+        // var_dump($data['ProductPerLeverancierInfo']);
         $this->view('Jamin/geleverdeProductenOverzicht', $data);
     }
 }
